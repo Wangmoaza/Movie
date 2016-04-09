@@ -58,6 +58,14 @@ public class MyLinkedList<T> implements ListInterface<T> {
 	public void removeAll() {
 		head.setNext(null);
 	}
+	
+	public void sortedAdd(T item) {
+		
+	}
+	
+	public void remove(){
+		
+	}
 }
 
 class MyLinkedListIterator<T> implements Iterator<T> {

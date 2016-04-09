@@ -10,9 +10,10 @@ import java.util.NoSuchElementException;
 public class MovieDB {
     public MovieDB() {
         // FIXME implement this
-    	
     	// HINT: MovieDBGenre 클래스를 정렬된 상태로 유지하기 위한 
     	// MyLinkedList 타입의 멤버 변수를 초기화 한다.
+    	
+    	
     }
 
     public void insert(MovieDBItem item) {
@@ -34,6 +35,7 @@ public class MovieDB {
     }
 
     public MyLinkedList<MovieDBItem> search(String term) {
+    	// 해당되는 term을 가지고 있는 MovieDBItem list를 새로 만들어서 그걸 반환
     	// FIXME implement this
         // Search the given term from the MovieDB.
         // You should return a linked list of MovieDBItem.
@@ -54,9 +56,10 @@ public class MovieDB {
     }
     
     public MyLinkedList<MovieDBItem> items() {
-        // FIXME implement this
-        // Search the given term from the MovieDatabase.
-        // You should return a linked list of QueryResult.
+        // Genre, Title로 정렬되어있는 단일 linked list를 return
+    	
+    	// FIXME implement this
+
         // The print command is handled at PrintCmd class.
 
     	// Printing movie items is the responsibility of PrintCmd class. 
@@ -98,6 +101,7 @@ class Genre extends Node<String> implements Comparable<Genre> {
 
 class MovieList implements ListInterface<String> {	
 	public MovieList() {
+		
 	}
 
 	@Override
