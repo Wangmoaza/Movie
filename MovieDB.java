@@ -8,12 +8,15 @@ import java.util.NoSuchElementException;
  * 유지하는 데이터베이스이다. 
  */
 public class MovieDB {
-    public MovieDB() {
+    
+	private MyLinkedList<Genre> genreList;
+	
+	public MovieDB() {
         // FIXME implement this
     	// HINT: MovieDBGenre 클래스를 정렬된 상태로 유지하기 위한 
     	// MyLinkedList 타입의 멤버 변수를 초기화 한다.
     	
-    	
+    	genreList = new MyLinkedList<>();
     }
 
     public void insert(MovieDBItem item) {
@@ -78,13 +81,27 @@ public class MovieDB {
 }
 
 class Genre extends Node<String> implements Comparable<Genre> {
+	
+	private MyLinkedList<MovieDBItem> movieList;
+	
 	public Genre(String name) {
 		super(name);
-		throw new UnsupportedOperationException("not implemented yet");
+		movieList = new MyLinkedList<>();
+		
+		//throw new UnsupportedOperationException("not implemented yet");
+	}
+	
+	public String getName(){
+		return this.getItem();
+	}
+	
+	public MyLinkedList<MovieDBItem> getMovieList(){
+		return movieList;
 	}
 	
 	@Override
 	public int compareTo(Genre o) {
+		
 		throw new UnsupportedOperationException("not implemented yet");
 	}
 
@@ -95,10 +112,36 @@ class Genre extends Node<String> implements Comparable<Genre> {
 
 	@Override
 	public boolean equals(Object obj) {
-		throw new UnsupportedOperationException("not implemented yet");
+		if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        
+        Genre other = (Genre) obj;
+        if (this.getItem() == null) {
+            if (other.getItem() != null)
+                return false;
+        } 
+        else if (!this.getItem().equals(other.getItem()))
+            return false;
+        
+        // FIXME
+        if (movieList == null) {
+            if (other.getMovieList() != null)
+                return false;
+        } 
+        else if (!movieList.equals(other.getMovieList()))
+            return false;
+        return true;
+		
+		
+		//throw new UnsupportedOperationException("not implemented yet");
 	}
 }
 
+/*
 class MovieList implements ListInterface<String> {	
 	public MovieList() {
 		
@@ -134,3 +177,5 @@ class MovieList implements ListInterface<String> {
 		throw new UnsupportedOperationException("not implemented yet");
 	}
 }
+
+*/

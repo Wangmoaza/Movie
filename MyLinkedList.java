@@ -2,7 +2,7 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class MyLinkedList<T> implements ListInterface<T> {
+public class MyLinkedList<T extends Comparable<T>> implements ListInterface<T> {
 	// dummy head
 	Node<T> head;
 	int numItems;
@@ -60,18 +60,97 @@ public class MyLinkedList<T> implements ListInterface<T> {
 	}
 	
 	public void sortedAdd(T item) {
+		if (isEmpty())
+			add(item);
 		
+		else if (head.getNext().getItem().compareTo(item) == 1)
+		{
+			head.insertNext(item);
+			numItems += 1;
+		}
+		
+		else
+		{
+			Node<T> prev = head.getNext(); 
+			Node<T> curr = prev.getNext();
+			
+			while (prev.getItem().compareTo(item) == -1)
+			{
+				if (curr == null)
+				{
+					prev.insertNext(item);
+					numItems += 1;
+					break;
+				}
+				
+				else if (curr.getItem().compareTo(item) == 1)// add item between prev & curr
+				{
+					prev.insertNext(item);
+					numItems += 1;
+					break;
+				}
+				
+				else if (curr.getItem().compareTo(item) == 0) // do nothing when same item exists
+					break;
+
+				else if (curr.getItem().compareTo(item) == -1) //proceed
+				{
+					prev = curr;
+					curr = curr.getNext();
+				}			
+			}
+		}
 	}
 	
-	public void remove(){
+	public void remove(T item){
+		Node<T> prev = head;
+		Node<T> curr = head.getNext();
+		
+		while (curr != null)
+		{
+			if (curr.getItem().equals(item))
+			{
+				prev.removeNext();
+				numItems -= 1;
+				break;
+			}
+			
+			else
+			{
+				prev = curr;
+				curr = curr.getNext();
+			}		
+		}
+	}
+	
+	// FIXME
+	/*
+	@Override
+	public boolean equals(Object obj){
+		if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        
+        MyLinkedList other = (MyLinkedList) obj;
+        Iterator it = other.iterator();
+        if (isEmpty() != other.isEmpty())
+        		return false;
+        else if (numItems != other.size())
+        	return false;
+        
+	}
+	
+	@Override
+	public int hashCode(){
 		
 	}
+	*/
 }
 
-class MyLinkedListIterator<T> implements Iterator<T> {
-	// FIXME implement this
-	// Implement the iterator for MyLinkedList.
-	// You have to maintain the current position of the iterator.
+class MyLinkedListIterator<T extends Comparable<T>> implements Iterator<T> {
 	private MyLinkedList<T> list;
 	private Node<T> curr;
 	private Node<T> prev;
