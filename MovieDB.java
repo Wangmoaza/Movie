@@ -12,17 +12,30 @@ public class MovieDB {
 	private MyLinkedList<Genre> genreList;
 	
 	public MovieDB() {
-        // FIXME implement this
-    	// HINT: MovieDBGenre 클래스를 정렬된 상태로 유지하기 위한 
-    	// MyLinkedList 타입의 멤버 변수를 초기화 한다.
-    	
     	genreList = new MyLinkedList<>();
     }
 
     public void insert(MovieDBItem item) {
         // FIXME implement this
         // Insert the given item to the MovieDB.
-
+    	boolean existingGenreFlag = false;
+    	
+    	for (Genre genre : genreList)
+    	{
+    		if (genre.getItem().equals(item.getGenre())) // name of the genre (String)
+    		{
+    			genre.addMovie(item);
+    			existingGenreFlag = true;
+    			break;
+    		}
+    	}
+    	
+    	if (!existingGenreFlag)
+    	{
+    		Genre newGenre = new Genre(item.getGenre());
+    		newGenre.addMovie(item);
+    	}
+    	
     	// Printing functionality is provided for the sake of debugging.
         // This code should be removed before submitting your work.
         System.err.printf("[trace] MovieDB: INSERT [%s] [%s]\n", item.getGenre(), item.getTitle());
@@ -32,6 +45,14 @@ public class MovieDB {
         // FIXME implement this
         // Remove the given item from the MovieDB.
     	
+    	for (Genre genre : genreList)
+    	{
+    		if (genre.getItem().equals(item.getGenre()))
+    		{
+    			genre.deleteMovie(item);
+    			break;
+    		}
+    	}
     	// Printing functionality is provided for the sake of debugging.
         // This code should be removed before submitting your work.
         System.err.printf("[trace] MovieDB: DELETE [%s] [%s]\n", item.getGenre(), item.getTitle());
@@ -91,18 +112,23 @@ class Genre extends Node<String> implements Comparable<Genre> {
 		//throw new UnsupportedOperationException("not implemented yet");
 	}
 	
-	public String getName(){
-		return this.getItem();
-	}
-	
 	public MyLinkedList<MovieDBItem> getMovieList(){
 		return movieList;
 	}
 	
+	public void addMovie(MovieDBItem item)
+	{
+		movieList.sortedAdd(item);
+	}
+	
+	public void deleteMovie(MovieDBItem item)
+	{
+		movieList.remove(item);
+	}
 	@Override
 	public int compareTo(Genre o) {
-		
-		throw new UnsupportedOperationException("not implemented yet");
+		return this.getItem().compareTo(o.getItem());
+		//throw new UnsupportedOperationException("not implemented yet");
 	}
 
 	@Override
@@ -127,18 +153,10 @@ class Genre extends Node<String> implements Comparable<Genre> {
         else if (!this.getItem().equals(other.getItem()))
             return false;
         
-        // FIXME
-        if (movieList == null) {
-            if (other.getMovieList() != null)
-                return false;
-        } 
-        else if (!movieList.equals(other.getMovieList()))
-            return false;
         return true;
-		
-		
 		//throw new UnsupportedOperationException("not implemented yet");
 	}
+	
 }
 
 /*
