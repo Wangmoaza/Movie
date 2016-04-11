@@ -34,6 +34,7 @@ public class MovieDB {
     	{
     		Genre newGenre = new Genre(item.getGenre());
     		newGenre.addMovie(item);
+    		genreList.sortedAdd(newGenre);
     	}
     	
     	// Printing functionality is provided for the sake of debugging.
@@ -65,6 +66,17 @@ public class MovieDB {
         // You should return a linked list of MovieDBItem.
         // The search command is handled at SearchCmd class.
     	
+    	 MyLinkedList<MovieDBItem> results = new MyLinkedList<MovieDBItem>();
+    	 
+    	 for (Genre genre : genreList)
+    	 {
+    		 for (MovieDBItem item : genre.getMovieList())
+    		 {
+    			 if (item.getTitle().contains(term))
+    				 results.add(item);
+    		 }
+    	 }
+    	
     	// Printing search results is the responsibility of SearchCmd class. 
     	// So you must not use System.out in this method to achieve specs of the assignment.
     	
@@ -74,7 +86,6 @@ public class MovieDB {
     	
     	// FIXME remove this code and return an appropriate MyLinkedList<MovieDBItem> instance.
     	// This code is supplied for avoiding compilation error.   
-        MyLinkedList<MovieDBItem> results = new MyLinkedList<MovieDBItem>();
 
         return results;
     }
@@ -84,6 +95,15 @@ public class MovieDB {
     	
     	// FIXME implement this
 
+    	MyLinkedList<MovieDBItem> results = new MyLinkedList<MovieDBItem>();
+    	for (Genre genre : genreList)
+    	{
+    		for (MovieDBItem item : genre.getMovieList())
+    		{
+    			results.add(item);
+    		}
+    	}
+    	
         // The print command is handled at PrintCmd class.
 
     	// Printing movie items is the responsibility of PrintCmd class. 
@@ -95,7 +115,6 @@ public class MovieDB {
 
     	// FIXME remove this code and return an appropriate MyLinkedList<MovieDBItem> instance.
     	// This code is supplied for avoiding compilation error.   
-        MyLinkedList<MovieDBItem> results = new MyLinkedList<MovieDBItem>();
         
     	return results;
     }
