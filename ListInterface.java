@@ -8,4 +8,8 @@ public interface ListInterface<T> extends Iterable<T> {
 	public T first();
 
 	public void removeAll();
+	
+	public void sortedAdd(T item);
+	
+	public void remove(T item);
 }

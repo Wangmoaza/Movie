@@ -90,25 +90,25 @@ public class AssignmentGuide {
 	}
 
     private static void testMovieList() {
-        ListInterface<String> l = new MovieList();
+        ListInterface<String> l = new MyLinkedList<>();
 
         // You should not modify these lines below to pass the tests.
         String item1 = "Data Structure";
-        l.add(item1);
+        l.sortedAdd(item1);
         assert l.size() == 1 : SIZE_FAILURE_MSG(l.size(), 1);;
         assert l.first().equals(item1) : VALUE_FAILURE_MSG("l.first()", l.first(), item1);
 
         String item2 = "System Programming";
-        l.add(item2);
+        l.sortedAdd(item2);
         assert l.size() == 2 : SIZE_FAILURE_MSG(l.size(), 2);
         assert l.first().equals(item1) : VALUE_FAILURE_MSG("l.first()", l.first(), item1);
 
         String item3 = "Computer Architecture";
-        l.add(item3);
+        l.sortedAdd(item3);
         assert l.size() == 3 : SIZE_FAILURE_MSG(l.size(), 3);
         assert l.first().equals(item3) : VALUE_FAILURE_MSG("l.first()", l.first(), item3);
 
-        l.add(item1);
+        l.sortedAdd(item1);
         assert l.size() == 3 : SIZE_FAILURE_MSG(l.size(), 3);
 
         Iterator<String> it = l.iterator();

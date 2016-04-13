@@ -59,11 +59,13 @@ public class MyLinkedList<T extends Comparable<T>> implements ListInterface<T> {
 		head.setNext(null);
 	}
 	
+	
 	public void sortedAdd(T item) {
+		// sorted set을 만들기 위해 sorting된 형태로 list에 item 추가
 		if (isEmpty())
 			add(item);
 		
-		else if (head.getNext().getItem().compareTo(item) == 1)
+		else if (head.getNext().getItem().compareTo(item) > 0) // 입력이 첫번째 item보다 작을 때 맨 앞에 추가
 		{
 			head.insertNext(item);
 			numItems += 1;
@@ -74,16 +76,16 @@ public class MyLinkedList<T extends Comparable<T>> implements ListInterface<T> {
 			Node<T> prev = head.getNext(); 
 			Node<T> curr = prev.getNext();
 			
-			while (prev.getItem().compareTo(item) == -1)
+			while (prev.getItem().compareTo(item) < 0)
 			{
-				if (curr == null)
+				if (curr == null) // when prev is the last item in list
 				{
 					prev.insertNext(item);
 					numItems += 1;
 					break;
 				}
 				
-				else if (curr.getItem().compareTo(item) == 1)// add item between prev & curr
+				else if (curr.getItem().compareTo(item) > 0)// add item between prev & curr
 				{
 					prev.insertNext(item);
 					numItems += 1;
@@ -92,12 +94,12 @@ public class MyLinkedList<T extends Comparable<T>> implements ListInterface<T> {
 				
 				else if (curr.getItem().compareTo(item) == 0) // do nothing when same item exists
 					break;
-
-				else if (curr.getItem().compareTo(item) == -1) //proceed
+					
+				else if (curr.getItem().compareTo(item) < 0) //proceed
 				{
 					prev = curr;
 					curr = curr.getNext();
-				}			
+				}				
 			}
 		}
 	}
@@ -122,32 +124,6 @@ public class MyLinkedList<T extends Comparable<T>> implements ListInterface<T> {
 			}		
 		}
 	}
-	
-	// FIXME
-	/*
-	@Override
-	public boolean equals(Object obj){
-		if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        
-        MyLinkedList other = (MyLinkedList) obj;
-        Iterator it = other.iterator();
-        if (isEmpty() != other.isEmpty())
-        		return false;
-        else if (numItems != other.size())
-        	return false;
-        
-	}
-	
-	@Override
-	public int hashCode(){
-		
-	}
-	*/
 }
 
 class MyLinkedListIterator<T extends Comparable<T>> implements Iterator<T> {
