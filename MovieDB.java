@@ -35,9 +35,6 @@ public class MovieDB {
     		newGenre.addMovie(item);
     		genreList.sortedAdd(newGenre);
     	}
-    	
-        // This code should be removed before submitting your work.
-       // System.err.printf("[trace] MovieDB: INSERT [%s] [%s]\n", item.getGenre(), item.getTitle());
     }
 
     public void delete(MovieDBItem item) {
@@ -48,11 +45,13 @@ public class MovieDB {
     		if (genre.getItem().equals(item.getGenre()))
     		{
     			genre.deleteMovie(item);
+    			
+    			if (genre.getMovieList().isEmpty())
+    				genreList.remove(genre);
+    			
     			break;
     		}
     	}
-        // This code should be removed before submitting your work.
-        //System.err.printf("[trace] MovieDB: DELETE [%s] [%s]\n", item.getGenre(), item.getTitle());
     }
 
     public MyLinkedList<MovieDBItem> search(String term) {
@@ -72,9 +71,6 @@ public class MovieDB {
     		 }
     	 }
     	
-        // This code should be removed before submitting your work.
-    	//System.err.printf("[trace] MovieDB: SEARCH [%s]\n", term);
-    	
         return results;
     }
     
@@ -92,9 +88,6 @@ public class MovieDB {
     		}
     	}
 
-        // This code should be removed before submitting your work.
-        //System.err.printf("[trace] MovieDB: ITEMS\n");  
-        
     	return results;
     }
 }
